@@ -7,26 +7,63 @@
 //
 
 import UIKit
+import NavigationDrawer
 
 class IMKBStocksAndIndicesViewController: UIViewController {
     
-    @IBOutlet weak var stocksAndIndicesButton: UIButton!
-    @IBOutlet weak var IMKBRisingButton: UIButton!
-    @IBOutlet weak var IMKBDrop: UIButton!
-    @IBOutlet weak var IMKBVolume: UIButton!
+    @IBOutlet weak var navigationBar: UINavigationItem!
     
-    let stocksAndIndicesButtonText = "Hisse ve Endeksler"
-    let IMKBRisingButtonText = "IMKB Yükselenler"
-    let IMKBDropText = "IMKB Düşenler"
-    let IMKBVolumeText = "IMKB Hacme Göre"
+    let navigationBarTitle = "IMKB Hisse ve Endeksler"
+    
+    let interactor = Interactor()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.IMKBDrop.setTitle(self.IMKBDropText, for: .normal)
-        self.IMKBRisingButton.setTitle(self.IMKBRisingButtonText, for: .normal)
-        self.IMKBVolume.setTitle(self.IMKBVolumeText, for: .normal)
-        self.stocksAndIndicesButton.setTitle(self.stocksAndIndicesButtonText, for: .normal)
+        navigationBar.title = navigationBarTitle
+        let deneme = StartRequestViewController()
+        deneme.startResponse()
 
+    }
+    
+    @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showSlidingMenu", sender: nil)
+    }
+    @IBAction func edgePanGesture(_ sender: UIScreenEdgePanGestureRecognizer) {
+        let translation = sender.translation(in: view)
+        let progress = MenuHelper.calculateProgress(translationInView: translation, viewBounds: view.bounds, direction: .Right)
+        
+        MenuHelper.mapGestureStateToInteractor(
+            gestureState: sender.state,
+            progress: progress,
+            interactor: interactor){
+                self.performSegue(withIdentifier: "showSlidingMenu", sender: nil)
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destinationViewController = segue.destination as? SlidingViewController {
+            destinationViewController.transitioningDelegate = self
+            destinationViewController.interactor = self.interactor
+        }
+    }
+}
+
+extension IMKBStocksAndIndicesViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return PresentMenuAnimator()
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return DismissMenuAnimator()
+    }
+    
+    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
+    }
+    
+    func interactionControllerForPresentation(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
+        return interactor.hasStarted ? interactor : nil
     }
 }
