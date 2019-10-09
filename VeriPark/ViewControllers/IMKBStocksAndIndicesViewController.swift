@@ -9,11 +9,15 @@
 import UIKit
 import NavigationDrawer
 
-class IMKBStocksAndIndicesViewController: UIViewController {
+class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
     
     @IBOutlet weak var navigationBar: UINavigationItem!
+    @IBOutlet weak var tableView: UITableView!
+    
+    var symbolArrayInSymbolStr: [String] = []
     
     let navigationBarTitle = "IMKB Hisse ve Endeksler"
+    let deneme = StartRequestViewController()
     
     let interactor = Interactor()
     
@@ -21,12 +25,21 @@ class IMKBStocksAndIndicesViewController: UIViewController {
         super.viewDidLoad()
         
         navigationBar.title = navigationBarTitle
-        let deneme = StartRequestViewController()
-        deneme.startResponse()
-       
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        tableView.reloadData()
+    }
+    
+    @IBAction func button(_ sender: Any) {
+        print(self.symbolArrayInSymbolStr)
+        print("deneme")
+        
+    }
     @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showSlidingMenu", sender: nil)
     }
@@ -47,6 +60,16 @@ class IMKBStocksAndIndicesViewController: UIViewController {
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = self.interactor
         }
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return StructView.symbolArrayInSymbolStr.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell ()
+        cell.textLabel?.text = StructView.symbolArrayInSymbolStr[indexPath.row]
+        return cell
     }
 }
 

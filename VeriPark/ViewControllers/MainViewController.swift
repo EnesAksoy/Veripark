@@ -13,6 +13,12 @@ class MainViewController: UIViewController {
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var nextButton: UIButton!
     
+    var iMKBStocksAndIndicesViewController = IMKBStocksAndIndicesViewController()
+    
+    var symbolArrayInSymbolStr: [String] = []
+    
+    let deneme = StartRequestViewController()
+    
     let buttonText = "IMKB Hisse Senetleri/Endeksler"
     let iconLabelText = "VERİPARK"
     
@@ -21,6 +27,14 @@ class MainViewController: UIViewController {
         
         self.iconLabel.text = self.iconLabelText
         self.nextButton.setTitle(self.buttonText, for: .normal)
+        
+        
+        deneme.startResponse()
     }
+    
+    @IBAction func button(_ sender: Any) {
+        deneme.secondResponse()
+    }
+    
 }
 

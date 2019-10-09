@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4A209BA518810125738D5DAD /* Pods_VeriPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5982204BEBA3EEAFD94E6F /* Pods_VeriPark.framework */; };
+		8F2F608F234E7B8000147A6B /* StructView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F2F608E234E7B8000147A6B /* StructView.swift */; };
 		8F558635234BB2C8006D0F1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558634234BB2C8006D0F1F /* AppDelegate.swift */; };
 		8F558637234BB2C8006D0F1F /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558636234BB2C8006D0F1F /* MainViewController.swift */; };
 		8F55863A234BB2C8006D0F1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F558638234BB2C8006D0F1F /* Main.storyboard */; };
@@ -24,6 +25,7 @@
 /* Begin PBXFileReference section */
 		7FB17C0189AA9A9D11264500 /* Pods-VeriPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeriPark.release.xcconfig"; path = "Target Support Files/Pods-VeriPark/Pods-VeriPark.release.xcconfig"; sourceTree = "<group>"; };
 		8C5982204BEBA3EEAFD94E6F /* Pods_VeriPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VeriPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F2F608E234E7B8000147A6B /* StructView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructView.swift; sourceTree = "<group>"; };
 		8F558631234BB2C8006D0F1F /* VeriPark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VeriPark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F558634234BB2C8006D0F1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8F558636234BB2C8006D0F1F /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				8F558655234C9613006D0F1F /* StartRequestViewController.swift */,
 				8F558659234D17CE006D0F1F /* AES.swift */,
 				8F9386A7234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift */,
+				8F2F608E234E7B8000147A6B /* StructView.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				8F558656234C9613006D0F1F /* StartRequestViewController.swift in Sources */,
 				8F9386A8234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift in Sources */,
 				8F558652234BC6A1006D0F1F /* DrawerViewController.swift in Sources */,
+				8F2F608F234E7B8000147A6B /* StructView.swift in Sources */,
 				8F55865A234D17CE006D0F1F /* AES.swift in Sources */,
 				8F55864A234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift in Sources */,
 				8F55864E234BBD03006D0F1F /* StocksAndIndicesViewController.swift in Sources */,
