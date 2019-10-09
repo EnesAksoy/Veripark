@@ -23,6 +23,7 @@ class IMKBStocksAndIndicesViewController: UIViewController {
         navigationBar.title = navigationBarTitle
         let deneme = StartRequestViewController()
         deneme.startResponse()
+       
 
     }
     

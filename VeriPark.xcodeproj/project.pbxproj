@@ -18,6 +18,7 @@
 		8F558652234BC6A1006D0F1F /* DrawerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558651234BC6A1006D0F1F /* DrawerViewController.swift */; };
 		8F558656234C9613006D0F1F /* StartRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558655234C9613006D0F1F /* StartRequestViewController.swift */; };
 		8F55865A234D17CE006D0F1F /* AES.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558659234D17CE006D0F1F /* AES.swift */; };
+		8F9386A8234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9386A7234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,7 @@
 		8F558651234BC6A1006D0F1F /* DrawerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawerViewController.swift; sourceTree = "<group>"; };
 		8F558655234C9613006D0F1F /* StartRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRequestViewController.swift; sourceTree = "<group>"; };
 		8F558659234D17CE006D0F1F /* AES.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AES.swift; sourceTree = "<group>"; };
+		8F9386A7234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMKBStocksAndIndicesDetailsViewController.swift; sourceTree = "<group>"; };
 		AE9F318A1940BAB7967600E6 /* Pods-VeriPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VeriPark.debug.xcconfig"; path = "Target Support Files/Pods-VeriPark/Pods-VeriPark.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -106,6 +108,7 @@
 				8F558651234BC6A1006D0F1F /* DrawerViewController.swift */,
 				8F558655234C9613006D0F1F /* StartRequestViewController.swift */,
 				8F558659234D17CE006D0F1F /* AES.swift */,
+				8F9386A7234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -237,6 +240,7 @@
 				8F558637234BB2C8006D0F1F /* MainViewController.swift in Sources */,
 				8F558635234BB2C8006D0F1F /* AppDelegate.swift in Sources */,
 				8F558656234C9613006D0F1F /* StartRequestViewController.swift in Sources */,
+				8F9386A8234DC1C100243F4E /* IMKBStocksAndIndicesDetailsViewController.swift in Sources */,
 				8F558652234BC6A1006D0F1F /* DrawerViewController.swift in Sources */,
 				8F55865A234D17CE006D0F1F /* AES.swift in Sources */,
 				8F55864A234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import Foundation
 import CommonCrypto
 
-struct AES {
+struct AESS {
     
     // MARK: - Value
     // MARK: Private
@@ -19,7 +19,7 @@ struct AES {
     
     
     // MARK: - Initialzier
-    init?(key: String, iv: String) {
+    init?(key: Data, iv: Data) {
 //        guard key.count == kCCKeySizeAES128 || key.count == kCCKeySizeAES256, let keyData = key.data(using: .utf8) else {
 //            debugPrint("Error: Failed to set a key.")
 //            return nil
@@ -29,10 +29,10 @@ struct AES {
 //            debugPrint("Error: Failed to set an initial vector.")
 //            return nil
 //        }
-        
-        
-        self.key = key.data(using: .utf8)!
-        self.iv  = iv.data(using: .utf8)!
+//        
+//        
+        self.key = key
+        self.iv  = iv
     }
     
     
@@ -50,10 +50,10 @@ struct AES {
     func crypt(data: Data?, option: CCOperation) -> Data? {
         guard let data = data else { return nil }
         
-        let cryptLength = [UInt8](repeating: 0, count: data.count + kCCBlockSizeAES128).count
+        let cryptLength = [UInt8](repeating: 0, count: data.count + kCCKeySizeAES256).count
         var cryptData   = Data(count: cryptLength)
-        
-        let keyLength = [UInt8](repeating: 0, count: kCCBlockSizeAES128).count
+    
+        let keyLength = [UInt8](repeating: 0, count: kCCKeySizeAES256).count
         let options   = CCOptions(kCCOptionPKCS7Padding)
         
         var bytesLength = Int(0)

@@ -15,11 +15,10 @@ class StartRequestViewController: UIViewController {
     var aesKey : String = ""
     var aesIV : String = ""
     var authorization : String = ""
-
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-       
     }
     func startResponse() {
         
@@ -59,19 +58,21 @@ class StartRequestViewController: UIViewController {
                     self.authorization = json["authorization"] as! String
                     print("authorization = \(self.authorization)")
                 }
+                let keyData = Data(base64Encoded: self.aesKey)
+                let ivData = Data(base64Encoded: self.aesIV)
                 
                 
-                
-                
-                if let abc = AES(key: self.aesKey , iv: self.aesIV) {
-                    print(abc.encrypt(string: "all")!)
+                if let abc = AESS(key: keyData! , iv: ivData!) {
                     let asd = abc.encrypt(string: "all")
-                    let string = String(bytes: asd!, encoding: .utf8)
-                    print(string)
+                    let eee = asd?.base64EncodedString(options: NSData.Base64EncodingOptions())
+                    print(eee!)
+//                    let cdb = abc.decrypt(data: asd)
+//                    let base64 = "HQGJ2Pdvxw+3HBA1RY2cIQ=="
+//                    let data = Data(base64Encoded: base64)
+//                    let cdb2 = abc.decrypt(data: data)
+//                    print("enoli")
+//                    print(cdb as Any)
                 }
-                
-                
-                
             } catch let error {
                 print(error.localizedDescription)
             }

@@ -5,9 +5,10 @@ target 'VeriPark' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
+pod 'RNCryptor'
 pod 'NavigationDrawer'
 pod 'CryptoSwift'
-pod 'RNCryptor'
+
 
   # Pods for VeriPark
 
