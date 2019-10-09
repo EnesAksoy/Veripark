@@ -13,8 +13,29 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var viewController: UIView!
+    
+    @IBOutlet weak var symbolValueLabel: UILabel!
+    @IBOutlet weak var priceValueLabel: UILabel!
+    @IBOutlet weak var differenceValueLabel: UILabel!
+    @IBOutlet weak var volumeValueLabel: UILabel!
+    @IBOutlet weak var buyingValueLabel: UILabel!
+    @IBOutlet weak var salesValueLabel: UILabel!
+    @IBOutlet weak var changeValueLabel: UILabel!
+    
+    let symbolValueLabelText = "Sembol"
+    let priceValueLabelText = "Fiyat"
+    let differenceValueLText = "Fark"
+    let volumeValueLabelText = "Hacim"
+    let buyingValueLabelText = "Alış"
+    let salesValueLabelText = "Satış"
+    let changeValueLabelText = "Değişim"
+    
+    
+    
     
     var symbolArrayInSymbolStr: [String] = []
+    let refreshControl = UIRefreshControl()
     
     let navigationBarTitle = "IMKB Hisse ve Endeksler"
     let deneme = StartRequestViewController()
@@ -23,23 +44,41 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationBar.title = navigationBarTitle
+       
+        self.symbolValueLabel.text = self.symbolValueLabelText
+        self.priceValueLabel.text = self.priceValueLabelText
+        self.differenceValueLabel.text = self.differenceValueLText
+        self.volumeValueLabel.text = self.volumeValueLabelText
+        self.buyingValueLabel.text = self.buyingValueLabelText
+        self.salesValueLabel.text = self.salesValueLabelText
+        self.changeValueLabel.text = self.changeValueLabelText
 
+        navigationBar.title = navigationBarTitle
+        
+        
+        if #available(iOS 10.0, *) {
+            tableView.refreshControl = refreshControl
+        } else {
+            tableView.addSubview(refreshControl)
+        }
+        
+        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+        refreshControl.tintColor = UIColor.white
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        
+        if (StructView.symbolArrayInSymbolStr == nil) {
+            return
+        }
         self.tableView.delegate = self
         self.tableView.dataSource = self
         
         tableView.reloadData()
     }
     
-    @IBAction func button(_ sender: Any) {
-        print(self.symbolArrayInSymbolStr)
-        print("deneme")
-        
-    }
+   
     @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showSlidingMenu", sender: nil)
     }
@@ -67,10 +106,40 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell ()
-        cell.textLabel?.text = StructView.symbolArrayInSymbolStr[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! IMKBStocksAndIndicesTableViewCell
+        cell.symbolValueLabel.text = StructView.symbolArrayInSymbolStr[indexPath.row]
+        cell.differenceValueLabel.text = String(StructView.differenceArray[indexPath.row])
+        cell.priceValueLabel.text = String(StructView.priceArray[indexPath.row])
+        cell.salesValueLabel.text = String(StructView.offerArray[indexPath.row])
+        cell.volumeValueLabel.text = String(StructView.volumeArray[indexPath.row])
+        cell.buyingValueLabel.text = String(StructView.bidArray[indexPath.row])
+        
+        if (StructView.isDownArray[indexPath.row] == false) {
+            cell.imageView?.image = UIImage(named:"up")!
+        } else {
+            cell.imageView?.image = UIImage(named:"down")!
+        }
+        
         return cell
     }
+    
+    @objc private func refreshWeatherData(_ sender: Any) {
+        
+        if (StructView.symbolArrayInSymbolStr == nil) {
+            return
+        }
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        self.refreshControl.endRefreshing()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // detaya giderken
+    }
+    
+    
 }
 
 extension IMKBStocksAndIndicesViewController: UIViewControllerTransitioningDelegate {

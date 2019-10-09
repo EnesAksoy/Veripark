@@ -15,11 +15,20 @@ class StartRequestViewController: UIViewController {
     var aesKey : String = ""
     var aesIV : String = ""
     var authorization : String = ""
-    var eee : String = ""
+    var periodNameBase64 : String = ""
     var symbol : String = ""
-    var symbolArrayInSymbol: [String] = []
+    var symbolArrayInSymbolArray: [String] = []
+    var symbolArrayInPriceArray: [Double] = []
+    var symbolArrayInDifferenceArray: [Double] = []
+    var offerArray: [Double] = []
+    var volumeArray: [Double] = []
+    var bidArray: [Double] = []
     var symbolArrayInSymbolStr: [String] = []
     var returnFirst: [String] = []
+    var isDownArray: [Bool] = []
+    
+    var keyData: Data!
+    var ivData: Data!
     
     
     
@@ -28,7 +37,7 @@ class StartRequestViewController: UIViewController {
     }
     
     func startResponse() {
-        DispatchQueue.main.async {
+        
             let url = URL(string:"https://mobilechallange.veripark.com/api/handshake/start")!
             let session = URLSession.shared
             var request = URLRequest(url: url)
@@ -66,24 +75,31 @@ class StartRequestViewController: UIViewController {
                         print("authorization = \(self.authorization)")
                         
                     }
-                    let keyData = Data(base64Encoded: self.aesKey)
-                    let ivData = Data(base64Encoded: self.aesIV)
+                    self.keyData = Data(base64Encoded: self.aesKey)!
+                    self.ivData = Data(base64Encoded: self.aesIV)!
+                    
+                    self.periodChangeName(name: "all")
                     
                     
-                    if let abc = AESS(key: keyData! , iv: ivData!) {
-                        let asd = abc.encrypt(string: "all")
-                        self.eee = (asd?.base64EncodedString(options: NSData.Base64EncodingOptions()))!
-                    }
                 } catch let error {
                     print(error.localizedDescription)
                 }
             })
             task.resume()
+//        semaphore.wait()
+//        secondResponse()
+//        }
+    }
+    
+    func periodChangeName (name: String) {
+        if let aes = AESS(key: self.keyData , iv: self.ivData) {
+            let periodNameEncrypt = aes.encrypt(string: name)
+            self.periodNameBase64 = (periodNameEncrypt?.base64EncodedString(options: NSData.Base64EncodingOptions()))!
         }
     }
     
     func secondResponse() {
-        DispatchQueue.main.async {
+//        DispatchQueue.main.async {
             let url2 = URL(string:"https://mobilechallange.veripark.com/api/stocks/list")!
             let session2 = URLSession.shared
             var request2 = URLRequest(url: url2)
@@ -91,7 +107,7 @@ class StartRequestViewController: UIViewController {
             request2.addValue(self.authorization, forHTTPHeaderField: "X-VP-Authorization")
             request2.httpMethod = "POST"
             var params2 : [String : String]
-            params2 = ["period" : self.eee]
+            params2 = ["period" : self.periodNameBase64]
             do {
                 request2.httpBody = try JSONSerialization.data(withJSONObject: params2, options: .prettyPrinted)
             }catch let error {
@@ -107,16 +123,24 @@ class StartRequestViewController: UIViewController {
                 }
                 do {
                     print(self.authorization)
-                    print(self.eee)
+                    print(self.periodNameBase64)
                     if let json2 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? AnyObject {
                         // print(json2)
                         let json2Stocks = json2["stocks"] as! [Dictionary<String,AnyObject>]
                         //                    print(json2Stocks)
                         
-                        for sss in json2Stocks {
-                            let symbolArray = sss as! [String:AnyObject]
-                            self.symbolArrayInSymbol.append(symbolArray["symbol"] as! String)
+                        for stock in json2Stocks {
+                            let symbolArray = stock as! [String:AnyObject]
+                            self.symbolArrayInSymbolArray.append(symbolArray["symbol"] as! String)
+                            self.symbolArrayInPriceArray.append(symbolArray["price"] as! Double)
+                            self.symbolArrayInDifferenceArray.append(symbolArray["difference"] as! Double)
+                            self.offerArray.append(symbolArray["offer"] as! Double)
+                            self.volumeArray.append(symbolArray["volume"] as! Double)
+                            self.bidArray.append(symbolArray["bid"] as! Double)
+                            self.isDownArray.append(symbolArray["isDown"] as! Bool)
+                            
                         }
+                        
                         
                         //                    print(self.symbolArrayInSymbol)
                         
@@ -125,8 +149,8 @@ class StartRequestViewController: UIViewController {
                         
                         if let abc = AESS(key: keyData! , iv: ivData!) {
                             
-                            for avd in self.symbolArrayInSymbol {
-                                let symData = Data(base64Encoded: avd)
+                            for item in self.symbolArrayInSymbolArray {
+                                let symData = Data(base64Encoded: item)
                                 let symDataString = abc.decrypt(data: symData)
                                 self.symbolArrayInSymbolStr.append(symDataString!)
                                 
@@ -134,17 +158,13 @@ class StartRequestViewController: UIViewController {
                             
                             print(self.symbolArrayInSymbolStr)
                             StructView.symbolArrayInSymbolStr = self.symbolArrayInSymbolStr
-                            
-                            //                    let cdb = abc.decrypt(data: asd)
-                            //                    let base64 = "HQGJ2Pdvxw+3HBA1RY2cIQ=="
-                            //                    let data = Data(base64Encoded: base64)
-                            //                    let cdb2 = abc.decrypt(data: data)
-                            //                    print("enoli")
-                            //                    print(cdb as Any)
+                            StructView.priceArray = self.symbolArrayInPriceArray
+                            StructView.differenceArray = self.symbolArrayInDifferenceArray
+                            StructView.offerArray = self.offerArray
+                            StructView.volumeArray = self.volumeArray
+                            StructView.bidArray = self.bidArray
+                            StructView.isDownArray = self.isDownArray
                         }
-                        
-                        //                    self.symbol = json["symbol"] as! String
-                        //                    print("symbol =====    \(self.symbol)")
                     }
                 }
                 catch let error {
@@ -152,7 +172,6 @@ class StartRequestViewController: UIViewController {
                 }
             })
             task.resume()
-        }
     }
 }
 
