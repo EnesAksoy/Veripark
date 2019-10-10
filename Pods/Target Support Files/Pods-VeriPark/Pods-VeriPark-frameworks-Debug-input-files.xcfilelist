@@ -1,4 +1,5 @@
 ${PODS_ROOT}/Target Support Files/Pods-VeriPark/Pods-VeriPark-frameworks.sh
+${BUILT_PRODUCTS_DIR}/Charts/Charts.framework
 ${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework
 ${BUILT_PRODUCTS_DIR}/NavigationDrawer/NavigationDrawer.framework
 ${BUILT_PRODUCTS_DIR}/RNCryptor/RNCryptor.framework

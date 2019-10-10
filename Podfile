@@ -8,6 +8,7 @@ target 'VeriPark' do
 pod 'RNCryptor'
 pod 'NavigationDrawer'
 pod 'CryptoSwift'
+pod 'Charts'
 
 
   # Pods for VeriPark

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Charts
 
 class IMKBStocksAndIndicesDetailsViewController: UIViewController {
 
@@ -22,6 +23,7 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     @IBOutlet weak var ceilingLabel: UILabel!
     @IBOutlet weak var baseLabel: UILabel!
     @IBOutlet weak var changeLabel: UILabel!
+    @IBOutlet weak var loadingImage: UIImageView!
     
     @IBOutlet weak var symbolValueLabel: UILabel!
     @IBOutlet weak var priceValueLabel: UILabel!
@@ -36,6 +38,10 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     @IBOutlet weak var baseValueLabel: UILabel!
     @IBOutlet weak var changeİmageView: UIImageView!
     
+    @IBOutlet weak var viewLineChart: LineChartView!
+    
+    var chart: LineChartView!
+    var dataSet: LineChartDataSet!
     
     let symbolLabelText = "Sembol:"
     let priceLabelText = "Fiyat:"
@@ -67,7 +73,10 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     var volume: Double = 0.0
     var symbol: String = ""
     var symbolDecrypt = ""
-    
+    var minimum: Double = 0.0
+    var ceiling: Double = 0.0
+    var daysArray: [Int] = []
+    var valueArray: [Double] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,16 +94,46 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
         self.baseLabel.text = baseLabelText
         self.changeLabel.text = changeLabelText
         
-        if (isDown == false) {
-            changeİmageView.image = UIImage(named:"up")!
-        } else {
-            changeİmageView.image = UIImage(named:"down")!
+        thirdResponse()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5.0) {
+            self.symbolValueLabel.text = self.symbolDecrypt
+            self.priceValueLabel.text = String(self.price)
+            self.percentDiffrenceValueLabel.text = String(self.difference)
+            self.transactionVolumeValueLabel.text = String(self.volume)
+            self.buyingValueLabel.text = String(self.bid)
+            self.salesValueLabel.text = String(self.offer)
+            self.dailyLowValueLabel.text = String(self.lowest)
+            self.dailyHighValueLabel.text = String(self.highest)
+            self.pieceValueLabel.text = String(self.count)
+            self.baseValueLabel.text = String(self.minimum)
+            self.ceilingValueLabel.text = String(self.maximum)
+            
+            if (self.isDown == false) {
+                self.changeİmageView.image = UIImage(named:"up")!
+            } else {
+                self.changeİmageView.image = UIImage(named:"down")!
+            }
+            
+            self.setChartValues()
+            self.loadingImage.isHidden = true
+        }
+    }
+    
+    func setChartValues(_ count: Int = 20) {
+        let values = (daysArray).map { (i) -> ChartDataEntry in
+            let val = Double(arc4random_uniform(UInt32(count)) + 3)
+            return ChartDataEntry(x: Double(i), y: val)
         }
         
-        thirdResponse()
-       
-    
+        let set1 = LineChartDataSet(entries: values, label: self.symbolDecrypt)
+        let data = LineChartData(dataSet: set1)
+        
+        self.viewLineChart.data = data
+        
     }
+    
+    
     
     func thirdResponse () {
         let urlDetail = URL(string:"https://mobilechallange.veripark.com/api/stocks/detail")!
@@ -128,6 +167,7 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
                     //print("bidddddd::::: \(self.bid)")
                     self.isDown = json3["isDown"] as! Bool
                     self.change = json3["channge"] as! Double
+                    self.minimum = json3["minimum"] as! Double
                     self.count = json3["count"] as! Int
                     self.difference = json3["difference"] as! Double
                     self.offer = json3["offer"] as! Double
@@ -142,9 +182,11 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
                         let symDataString = aes.decrypt(data: symData)
                         self.symbolDecrypt = symDataString!
                        }
-                   
-                 
-                    
+                    let graphicData = json3["graphicData"] as! [Dictionary<String,AnyObject>]
+                    for qqq in graphicData {
+                        self.daysArray.append(qqq["day"] as! Int)
+                        self.valueArray.append(qqq["value"] as! Double)
+                    }
                 }
             }
             catch let error {
@@ -153,5 +195,10 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
         })
         task.resume()
         
+    }
+    @IBAction func homeButtonClick(_ sender: Any) {
+        let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
+        let newViewController = storyBoard.instantiateViewController(withIdentifier: "mainViewController") as! MainViewController
+        self.present(newViewController, animated: true, completion: nil)
     }
 }

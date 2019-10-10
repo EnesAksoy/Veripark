@@ -28,4 +28,20 @@ struct StructView {
     static var periodName: String!
     
     static var requestSecond: URLRequest!
+    
+    
+    static var isDown: Bool!
+    static var bid: Double!
+    static var change: Double!
+    static var count: Int!
+    static var difference: Double!
+    static var offer: Double!
+    static var highest: Double!
+    static var lowest: Double!
+    static var maximum: Double!
+    static var minumum: Double!
+    static var price: Double!
+    static var volume: Double!
+    static var symbol: String!
+    static var symbolDecrypt: String!
 }
