@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-            timestampString = "592422315.354849"
+            timestampString = "592433006.750946"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162">
+            startingLineNumber = "158"
+            endingLineNumber = "158">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -40,12 +40,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VeriPark/ViewControllers/SlidingViewController.swift"
-            timestampString = "592425353.853018"
+            timestampString = "592433006.751019"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "buttonIncresingClicked(_:)"
+            startingLineNumber = "64"
+            endingLineNumber = "64"
+            landmarkName = "handleGesture(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -55,13 +55,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/StartRequestViewController.swift"
-            timestampString = "592425353.853101"
+            filePath = "VeriPark/ViewControllers/SlidingViewController.swift"
+            timestampString = "592433006.751062"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
-            landmarkName = "periodChangeName(name:)"
+            startingLineNumber = "121"
+            endingLineNumber = "121"
+            landmarkName = "buttonDecreasingClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

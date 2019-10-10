@@ -68,12 +68,10 @@ class SlidingViewController: UIViewController, UIAlertViewDelegate {
         MenuHelper.mapGestureStateToInteractor(
             gestureState: sender.state,
             progress: progress,
-            interactor: interactor){
-                self.dismiss(animated: true, completion: nil)
-     
+            interactor: interactor) {
+//                self.dismiss(animated: true, completion: nil)
         }
     }
-    
     
     @IBAction func closeBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -90,7 +88,7 @@ class SlidingViewController: UIViewController, UIAlertViewDelegate {
         
 //        self.deneme.name = "increasing"
         StructView.periodName = deneme.periodChangeName(name: "increasing")
-        if (Int(truncating: StructView.secondApiEnter) < 2) {
+        if (Int(truncating: StructView.secondApiEnter) < 1) {
             showAlert(title: "HATA", message: "Lütfen tekrar deneyiniz.")
         }
         self.deneme.secondResponse()

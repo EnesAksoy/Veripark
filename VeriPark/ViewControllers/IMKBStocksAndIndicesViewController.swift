@@ -9,7 +9,7 @@
 import UIKit
 import NavigationDrawer
 
-class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+class IMKBStocksAndIndicesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     @IBOutlet weak var navigationBar: UINavigationItem!
     @IBOutlet weak var tableView: UITableView!
@@ -23,6 +23,12 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     @IBOutlet weak var salesValueLabel: UILabel!
     @IBOutlet weak var changeValueLabel: UILabel!
     
+    var symbolArrayInSymbolStrr: [String] = []
+    
+    var isSearch = false
+    
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     let symbolValueLabelText = "Sembol"
     let priceValueLabelText = "Fiyat"
     let differenceValueLText = "Fark"
@@ -30,9 +36,6 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     let buyingValueLabelText = "Alış"
     let salesValueLabelText = "Satış"
     let changeValueLabelText = "Değişim"
-    
-    
-    
     
     var symbolArrayInSymbolStr: [String] = []
     let refreshControl = UIRefreshControl()
@@ -44,6 +47,8 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
        
         self.symbolValueLabel.text = self.symbolValueLabelText
         self.priceValueLabel.text = self.priceValueLabelText
@@ -64,7 +69,18 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
         
         refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         refreshControl.tintColor = UIColor.white
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        isSearch = true
         
+        let filteredStrings = StructView.symbolArrayInSymbolStr.filter({(item: String) -> Bool in
+            
+            let stringMatch = item.lowercased().range(of: searchText.lowercased())
+            return stringMatch != nil ? true : false
+        })
+        symbolArrayInSymbolStrr = filteredStrings
+        tableView.reloadData()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -79,7 +95,6 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
         tableView.reloadData()
     }
     
-   
     @IBAction func homeButtonPressed(_ sender: UIBarButtonItem) {
         performSegue(withIdentifier: "showSlidingMenu", sender: nil)
     }
@@ -103,24 +118,31 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return StructView.symbolArrayInSymbolStr.count
+        if (isSearch == true) {
+            return symbolArrayInSymbolStrr.count
+        }else {
+            return StructView.symbolArrayInSymbolStr.count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "myCell", for: indexPath) as! IMKBStocksAndIndicesTableViewCell
-        cell.symbolValueLabel.text = StructView.symbolArrayInSymbolStr[indexPath.row]
-        cell.differenceValueLabel.text = String(StructView.differenceArray[indexPath.row])
-        cell.priceValueLabel.text = String(StructView.priceArray[indexPath.row])
-        cell.salesValueLabel.text = String(StructView.offerArray[indexPath.row])
-        cell.volumeValueLabel.text = String(StructView.volumeArray[indexPath.row])
-        cell.buyingValueLabel.text = String(StructView.bidArray[indexPath.row])
-        
-        if (StructView.isDownArray[indexPath.row] == false) {
-            cell.changeImageView.image = UIImage(named:"up")!
-        } else {
-            cell.changeImageView.image = UIImage(named:"down")!
+        if (isSearch == true) {
+            cell.symbolValueLabel.text = symbolArrayInSymbolStrr[indexPath.row]
+        }else {
+            cell.symbolValueLabel.text = StructView.symbolArrayInSymbolStr[indexPath.row]
+            cell.differenceValueLabel.text = String(StructView.differenceArray[indexPath.row])
+            cell.priceValueLabel.text = String(StructView.priceArray[indexPath.row])
+            cell.salesValueLabel.text = String(StructView.offerArray[indexPath.row])
+            cell.volumeValueLabel.text = String(StructView.volumeArray[indexPath.row])
+            cell.buyingValueLabel.text = String(StructView.bidArray[indexPath.row])
+            
+            if (StructView.isDownArray[indexPath.row] == false) {
+                cell.changeImageView.image = UIImage(named:"up")!
+            } else {
+                cell.changeImageView.image = UIImage(named:"down")!
+            }
         }
-        
         return cell
     }
 
@@ -138,10 +160,8 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         StructView.selectedId = StructView.idArray[indexPath.row]
-        performSegue(withIdentifier: "toDetail", sender: self)
+        performSegue(withIdentifier: "toDetail", sender: nil)
     }
-    
-    
 }
 
 extension IMKBStocksAndIndicesViewController: UIViewControllerTransitioningDelegate {

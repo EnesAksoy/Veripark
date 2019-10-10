@@ -34,6 +34,7 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     @IBOutlet weak var pieceValueLabel: UILabel!
     @IBOutlet weak var ceilingValueLabel: UILabel!
     @IBOutlet weak var baseValueLabel: UILabel!
+    @IBOutlet weak var changeİmageView: UIImageView!
     
     
     let symbolLabelText = "Sembol:"
@@ -70,10 +71,6 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.navigationItem.hidesBackButton = true
-        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.bordered, target: self, action: Selector(("back:")))
-        self.navigationItem.leftBarButtonItem = newBackButton
 
         self.symbolLabel.text = symbolLabelText
         self.priceLabel.text = priceLabelText
@@ -88,16 +85,15 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
         self.baseLabel.text = baseLabelText
         self.changeLabel.text = changeLabelText
         
+        if (isDown == false) {
+            changeİmageView.image = UIImage(named:"up")!
+        } else {
+            changeİmageView.image = UIImage(named:"down")!
+        }
+        
         thirdResponse()
        
     
-    }
-    
-    func back(sender: UIBarButtonItem) {
-        // Perform your custom actions
-        // ...
-        // Go back to the previous ViewController
-        self.navigationController?.popViewController(animated: true)
     }
     
     func thirdResponse () {
