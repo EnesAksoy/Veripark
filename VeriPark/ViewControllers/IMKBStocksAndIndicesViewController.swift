@@ -116,9 +116,9 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
         cell.buyingValueLabel.text = String(StructView.bidArray[indexPath.row])
         
         if (StructView.isDownArray[indexPath.row] == false) {
-            cell.imageView?.image = UIImage(named:"up")!
+            cell.changeImageView.image = UIImage(named:"up")!
         } else {
-            cell.imageView?.image = UIImage(named:"down")!
+            cell.changeImageView.image = UIImage(named:"down")!
         }
         
         return cell
