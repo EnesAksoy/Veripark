@@ -22,5 +22,10 @@ struct StructView {
     
     static var keyData : Data!
     static var ivData : Data!
-    static var authorization : String!
+    static var authorization: String!
+    static var secondApiEnter: NSNumber = 0
+    
+    static var periodName: String!
+    
+    static var requestSecond: URLRequest!
 }

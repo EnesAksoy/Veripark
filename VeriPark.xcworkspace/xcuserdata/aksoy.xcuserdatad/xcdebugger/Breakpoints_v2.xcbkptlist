@@ -26,93 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-            timestampString = "592366992.41276"
+            timestampString = "592422315.354849"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "110"
-            endingLineNumber = "110"
-            landmarkName = "thirdResponse()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VeriPark.IMKBStocksAndIndicesDetailsViewController.thirdResponse() -&gt; ()"
-                  moduleName = "VeriPark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aksoy/Desktop/VeriPark/VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-                  timestampString = "592368611.904508"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "110"
-                  endingLineNumber = "110"
-                  offsetFromSymbolStart = "3250">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in VeriPark.IMKBStocksAndIndicesDetailsViewController.thirdResponse() -&gt; ()"
-                  moduleName = "VeriPark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aksoy/Desktop/VeriPark/VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-                  timestampString = "592368611.9066041"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "111"
-                  endingLineNumber = "111"
-                  offsetFromSymbolStart = "394">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-            timestampString = "592366992.4128211"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "99"
-            endingLineNumber = "99"
-            landmarkName = "thirdResponse()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-            timestampString = "592366992.412863"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
-            landmarkName = "thirdResponse()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/IMKBStocksAndIndicesDetailsViewController.swift"
-            timestampString = "592366992.41355"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "thirdResponse()"
-            landmarkType = "7">
+            startingLineNumber = "162"
+            endingLineNumber = "162">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -122,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VeriPark/ViewControllers/SlidingViewController.swift"
-            timestampString = "592368611.641073"
+            timestampString = "592423724.3355139"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
             landmarkName = "buttonIncresingClicked(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,76 +56,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "VeriPark/ViewControllers/StartRequestViewController.swift"
-            timestampString = "592368611.6414829"
+            timestampString = "592423724.335578"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
-            landmarkName = "secondResponse()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "VeriPark.StartRequestViewController.secondResponse() -&gt; ()"
-                  moduleName = "VeriPark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aksoy/Desktop/VeriPark/VeriPark/ViewControllers/StartRequestViewController.swift"
-                  timestampString = "592368611.936298"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "130"
-                  endingLineNumber = "130"
-                  offsetFromSymbolStart = "1739">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in VeriPark.StartRequestViewController.secondResponse() -&gt; ()"
-                  moduleName = "VeriPark"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/aksoy/Desktop/VeriPark/VeriPark/ViewControllers/StartRequestViewController.swift"
-                  timestampString = "592368611.937925"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "131"
-                  endingLineNumber = "131"
-                  offsetFromSymbolStart = "590">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/StartRequestViewController.swift"
-            timestampString = "592368611.641533"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
-            landmarkName = "secondResponse()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "VeriPark/ViewControllers/StartRequestViewController.swift"
-            timestampString = "592368611.6415761"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
-            landmarkName = "secondResponse()"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "periodChangeName(name:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -9,7 +9,7 @@
 import UIKit
 import NavigationDrawer
 
-class SlidingViewController: UIViewController {
+class SlidingViewController: UIViewController, UIAlertViewDelegate {
     
     @IBOutlet weak var veriparkLabel: UILabel!
     @IBOutlet weak var ImkbStocksLabel: UILabel!
@@ -32,6 +32,7 @@ class SlidingViewController: UIViewController {
     var buttonVolume50Text = "Hacme Göre-50"
     var buttonVolume100Text = "Hacme Göre-100"
     
+    var alert = UIAlertController()
     
     var interactor:Interactor? = nil
     
@@ -87,13 +88,37 @@ class SlidingViewController: UIViewController {
     }
     @IBAction func buttonIncresingClicked(_ sender: Any) {
         
+//        self.deneme.name = "increasing"
+        StructView.periodName = deneme.periodChangeName(name: "increasing")
+        if (Int(truncating: StructView.secondApiEnter) < 2) {
+            showAlert(title: "HATA", message: "Lütfen tekrar deneyiniz.")
+        }
+        self.deneme.secondResponse()
+        self.performSegue(withIdentifier: "slideToDetail", sender: self)
         
-        deneme.name = "increasing"
-        deneme.secondResponse()
-        deneme.periodChangeName(name: "increasing")
-        performSegue(withIdentifier: "slideToDetail", sender: nil)
+////        StructView.periodName = deneme.periodChangeName(name: "increasing")
+//
+//        if (Int(truncating: StructView.secondApiEnter) < 2) {
+////            self.alert = showAlert(title: "HATA", message: "Lütfen tekrar deneyiniz.")
+//            self.alert = UIAlertController(title: "HATA", message: "Lütfen tekrar deneyiniz.", preferredStyle: .alert)
+//            self.alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
+//
+//                self.deneme.name = "increasing"
+//                self.deneme.secondResponse()
+//              //  self.deneme.periodChangeName(name: "increasing")
+//                self.performSegue(withIdentifier: "slideToDetail", sender: self)
+//
+//                }))
+//            self.present(alert, animated: true, completion: nil)
+//        }
         
     }
+    
+    
+    
+    
+    
+    
     @IBAction func buttonDecreasingClicked(_ sender: Any) {
         self.buttonVolume30.isHidden = false
         self.buttonVolume50.isHidden = false

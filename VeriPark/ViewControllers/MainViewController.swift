@@ -16,6 +16,7 @@ class MainViewController: UIViewController {
     var iMKBStocksAndIndicesViewController = IMKBStocksAndIndicesViewController()
     
     var symbolArrayInSymbolStr: [String] = []
+    var isAuthorization: Bool!
     
     let deneme = StartRequestViewController()
     
@@ -29,12 +30,27 @@ class MainViewController: UIViewController {
         self.nextButton.setTitle(self.buttonText, for: .normal)
         
         
-        deneme.startResponse()
+        self.isAuthorization = deneme.startResponse()
     }
     
     @IBAction func button(_ sender: Any) {
-        deneme.secondResponse()
+        if (self.isAuthorization) {
+            StructView.periodName = deneme.periodChangeName(name: "all")
+            deneme.secondResponse()
+        }else {
+            self.isAuthorization = deneme.startResponse()
+            showAlert(title: "HATA", message: "Lütfen internetinizi kontrol ediniz ve butona tekrar tıklayınız.")
+        }
     }
-    
 }
+
+extension UIViewController {
+    func showAlert (title:String, message:String) {
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        self.present(alert,animated:true,completion:nil)
+    }
+}
+
 

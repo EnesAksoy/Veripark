@@ -62,7 +62,7 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
             tableView.addSubview(refreshControl)
         }
         
-        refreshControl.addTarget(self, action: #selector(refreshWeatherData(_:)), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshData(_:)), for: .valueChanged)
         refreshControl.tintColor = UIColor.white
         
     }
@@ -70,6 +70,7 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     override func viewDidAppear(_ animated: Bool) {
         
         if (StructView.symbolArrayInSymbolStr == nil) {
+            showAlert(title: "HATA", message: "İnternet hızınızdan dolayı veri çekme işlemi tamamlanamadı lütfen table viewi yenilemek için aşağı çekiniz.")
             return
         }
         self.tableView.delegate = self
@@ -122,11 +123,8 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
         
         return cell
     }
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        StructView.selectedId = StructView.idArray[indexPath.row]
-        performSegue(withIdentifier: "toDetail", sender: nil)
-    }
-    @objc private func refreshWeatherData(_ sender: Any) {
+
+    @objc private func refreshData(_ sender: Any) {
         
         if (StructView.symbolArrayInSymbolStr == nil) {
             return
@@ -139,7 +137,8 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // detaya giderken
+        StructView.selectedId = StructView.idArray[indexPath.row]
+        performSegue(withIdentifier: "toDetail", sender: self)
     }
     
     

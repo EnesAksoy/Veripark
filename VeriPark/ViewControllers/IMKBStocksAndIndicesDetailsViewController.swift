@@ -70,6 +70,10 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationItem.hidesBackButton = true
+        let newBackButton = UIBarButtonItem(title: "Back", style: UIBarButtonItem.Style.bordered, target: self, action: Selector(("back:")))
+        self.navigationItem.leftBarButtonItem = newBackButton
 
         self.symbolLabel.text = symbolLabelText
         self.priceLabel.text = priceLabelText
@@ -87,6 +91,13 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
         thirdResponse()
        
     
+    }
+    
+    func back(sender: UIBarButtonItem) {
+        // Perform your custom actions
+        // ...
+        // Go back to the previous ViewController
+        self.navigationController?.popViewController(animated: true)
     }
     
     func thirdResponse () {
