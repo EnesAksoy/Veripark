@@ -49,6 +49,25 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     let baseLabelText = "Taban:"
     let changeLabelText = "Değişim:"
     
+    var id = String(StructView.selectedId)
+    var encryptIdBase64 : String = ""
+    
+    var isDown: Bool = false
+    var bid: Double = 0.0
+    var change: Double = 0.0
+    var count: Int = 0
+    var difference: Double = 0.0
+    var offer: Double = 0.0
+    var highest: Double = 0.0
+    var lowest: Double = 0.0
+    var maximum: Double = 0.0
+    var minumum: Double = 0.0
+    var price: Double = 0.0
+    var volume: Double = 0.0
+    var symbol: String = ""
+    var symbolDecrypt = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -65,11 +84,67 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
         self.baseLabel.text = baseLabelText
         self.changeLabel.text = changeLabelText
         
+        thirdResponse()
+       
     
     }
     
-    
-
-    
-
+    func thirdResponse () {
+        let urlDetail = URL(string:"https://mobilechallange.veripark.com/api/stocks/detail")!
+        let session3 = URLSession.shared
+        var request3 = URLRequest(url: urlDetail)
+        request3.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request3.addValue(StructView.authorization, forHTTPHeaderField: "X-VP-Authorization")
+        request3.httpMethod = "POST"
+        if let aes = AESS(key: StructView.keyData , iv: StructView.ivData) {
+            let encryptId = aes.encrypt(string: id)
+            self.encryptIdBase64 = (encryptId?.base64EncodedString(options: NSData.Base64EncodingOptions()))!
+        }
+        var params3 : [String:String]
+        params3 = ["id" : encryptIdBase64]
+        do {
+            request3.httpBody = try JSONSerialization.data(withJSONObject: params3, options: .prettyPrinted)
+        }catch let error {
+            print(error.localizedDescription)
+        }
+        let task = session3.dataTask(with: request3 as URLRequest, completionHandler: { data, response, error in
+            guard error == nil else {
+                print(error?.localizedDescription ?? "ERROR")
+                return
+            }
+            guard let data = data else {
+                return
+            }
+            do {
+                if let json3 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject] {
+                    self.bid = json3["bid"] as! Double
+                    //print("bidddddd::::: \(self.bid)")
+                    self.isDown = json3["isDown"] as! Bool
+                    self.change = json3["channge"] as! Double
+                    self.count = json3["count"] as! Int
+                    self.difference = json3["difference"] as! Double
+                    self.offer = json3["offer"] as! Double
+                    self.highest = json3["highest"] as! Double
+                    self.lowest = json3["lowest"] as! Double
+                    self.maximum = json3["maximum"] as! Double
+                    self.price = json3["price"] as! Double
+                    self.volume = json3["volume"] as! Double
+                    self.symbol = json3["symbol"] as! String
+                     if let aes = AESS(key: StructView.keyData! , iv: StructView.ivData!) {
+                        let symData = Data(base64Encoded: self.symbol)
+                        let symDataString = aes.decrypt(data: symData)
+                        self.symbolDecrypt = symDataString!
+                       }
+                   
+                 
+                    
+                }
+            }
+            catch let error {
+                print(error.localizedDescription)
+            }
+        })
+        task.resume()
+        
+    }
 }

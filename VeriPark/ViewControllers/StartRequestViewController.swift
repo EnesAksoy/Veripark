@@ -15,7 +15,7 @@ class StartRequestViewController: UIViewController {
     var aesKey : String = ""
     var aesIV : String = ""
     var authorization : String = ""
-    var periodNameBase64 : String = ""
+    //var periodNameBase64 : String = ""
     var symbol : String = ""
     var symbolArrayInSymbolArray: [String] = []
     var symbolArrayInPriceArray: [Double] = []
@@ -24,12 +24,15 @@ class StartRequestViewController: UIViewController {
     var volumeArray: [Double] = []
     var bidArray: [Double] = []
     var symbolArrayInSymbolStr: [String] = []
-    var returnFirst: [String] = []
     var isDownArray: [Bool] = []
+    var idArray: [Int] = []
     
     var keyData: Data!
     var ivData: Data!
     
+    var name : String = "all"
+    
+    var aaaa = ""
     
     
     override func viewDidLoad() {
@@ -38,9 +41,9 @@ class StartRequestViewController: UIViewController {
     
     func startResponse() {
         
-            let url = URL(string:"https://mobilechallange.veripark.com/api/handshake/start")!
+            let urlStart = URL(string:"https://mobilechallange.veripark.com/api/handshake/start")!
             let session = URLSession.shared
-            var request = URLRequest(url: url)
+            var request = URLRequest(url: urlStart)
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpMethod = "POST"
             var params : [String : Any]
@@ -78,7 +81,15 @@ class StartRequestViewController: UIViewController {
                     self.keyData = Data(base64Encoded: self.aesKey)!
                     self.ivData = Data(base64Encoded: self.aesIV)!
                     
-                    self.periodChangeName(name: "all")
+                    StructView.keyData = self.keyData
+                    StructView.ivData = self.ivData
+                    StructView.authorization = self.authorization
+                    
+                   //self.periodChangeName(name: self.name)
+                    //self.periodChangeName(name: self.name)
+                    let valueess = self.periodChangeName(name: self.name)
+                   
+                    
                     
                     
                 } catch let error {
@@ -91,23 +102,26 @@ class StartRequestViewController: UIViewController {
 //        }
     }
     
-    func periodChangeName (name: String) {
-        if let aes = AESS(key: self.keyData , iv: self.ivData) {
+    func periodChangeName (name: String) -> String {
+        if let aes = AESS(key: StructView.keyData , iv: StructView.ivData) {
             let periodNameEncrypt = aes.encrypt(string: name)
-            self.periodNameBase64 = (periodNameEncrypt?.base64EncodedString(options: NSData.Base64EncodingOptions()))!
+            let periodNameBase64 = (periodNameEncrypt?.base64EncodedString(options: NSData.Base64EncodingOptions()))!
+            self.aaaa = periodNameBase64
         }
+         return aaaa
     }
     
     func secondResponse() {
 //        DispatchQueue.main.async {
-            let url2 = URL(string:"https://mobilechallange.veripark.com/api/stocks/list")!
+            let urlList = URL(string:"https://mobilechallange.veripark.com/api/stocks/list")!
             let session2 = URLSession.shared
-            var request2 = URLRequest(url: url2)
+            var request2 = URLRequest(url: urlList)
             request2.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request2.addValue(self.authorization, forHTTPHeaderField: "X-VP-Authorization")
             request2.httpMethod = "POST"
             var params2 : [String : String]
-            params2 = ["period" : self.periodNameBase64]
+            let values = self.periodChangeName(name: name)
+            params2 = ["period" : values]
             do {
                 request2.httpBody = try JSONSerialization.data(withJSONObject: params2, options: .prettyPrinted)
             }catch let error {
@@ -122,15 +136,14 @@ class StartRequestViewController: UIViewController {
                     return
                 }
                 do {
-                    print(self.authorization)
-                    print(self.periodNameBase64)
-                    if let json2 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? AnyObject {
-                        // print(json2)
+                    //print(self.authorization)
+                   // print(self.periodNameBase64)
+                    if let json2 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject] {
+                       
                         let json2Stocks = json2["stocks"] as! [Dictionary<String,AnyObject>]
-                        //                    print(json2Stocks)
                         
                         for stock in json2Stocks {
-                            let symbolArray = stock as! [String:AnyObject]
+                            let symbolArray = stock
                             self.symbolArrayInSymbolArray.append(symbolArray["symbol"] as! String)
                             self.symbolArrayInPriceArray.append(symbolArray["price"] as! Double)
                             self.symbolArrayInDifferenceArray.append(symbolArray["difference"] as! Double)
@@ -138,20 +151,16 @@ class StartRequestViewController: UIViewController {
                             self.volumeArray.append(symbolArray["volume"] as! Double)
                             self.bidArray.append(symbolArray["bid"] as! Double)
                             self.isDownArray.append(symbolArray["isDown"] as! Bool)
-                            
+                            self.idArray.append(symbolArray["id"] as! Int)
                         }
-                        
-                        
-                        //                    print(self.symbolArrayInSymbol)
-                        
                         let keyData = Data(base64Encoded: self.aesKey)
                         let ivData = Data(base64Encoded: self.aesIV)
                         
-                        if let abc = AESS(key: keyData! , iv: ivData!) {
+                        if let aes = AESS(key: keyData! , iv: ivData!) {
                             
                             for item in self.symbolArrayInSymbolArray {
                                 let symData = Data(base64Encoded: item)
-                                let symDataString = abc.decrypt(data: symData)
+                                let symDataString = aes.decrypt(data: symData)
                                 self.symbolArrayInSymbolStr.append(symDataString!)
                                 
                             }
@@ -164,6 +173,7 @@ class StartRequestViewController: UIViewController {
                             StructView.volumeArray = self.volumeArray
                             StructView.bidArray = self.bidArray
                             StructView.isDownArray = self.isDownArray
+                            StructView.idArray = self.idArray
                         }
                     }
                 }

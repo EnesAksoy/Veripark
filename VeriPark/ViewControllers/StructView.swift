@@ -16,4 +16,11 @@ struct StructView {
     static var volumeArray: [Double]!
     static var bidArray: [Double]!
     static var isDownArray: [Bool]!
+    static var idArray: [Int]!
+    
+    static var selectedId : Int!
+    
+    static var keyData : Data!
+    static var ivData : Data!
+    static var authorization : String!
 }

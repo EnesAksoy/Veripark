@@ -95,7 +95,7 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let destinationViewController = segue.destination as? SlidingViewController {
+        if let destinationViewController = segue.destination as? SlidingViewController{
             destinationViewController.transitioningDelegate = self
             destinationViewController.interactor = self.interactor
         }
@@ -122,7 +122,10 @@ class IMKBStocksAndIndicesViewController: UIViewController,UITableViewDelegate,U
         
         return cell
     }
-    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        StructView.selectedId = StructView.idArray[indexPath.row]
+        performSegue(withIdentifier: "toDetail", sender: nil)
+    }
     @objc private func refreshWeatherData(_ sender: Any) {
         
         if (StructView.symbolArrayInSymbolStr == nil) {
