@@ -12,7 +12,7 @@ import NavigationDrawer
 class SlidingViewController: UIViewController, UIAlertViewDelegate {
     
     @IBOutlet weak var veriparkLabel: UILabel!
-    @IBOutlet weak var ImkbStocksLabel: UILabel!
+    @IBOutlet weak var imkbStocksLabel: UILabel!
     @IBOutlet weak var buttonAll: UIButton!
     @IBOutlet weak var buttonIncreasing: UIButton!
     @IBOutlet weak var buttonDecreasing: UIButton!
@@ -29,16 +29,15 @@ class SlidingViewController: UIViewController, UIAlertViewDelegate {
     var buttonVolume50Text = "Hacme Göre-50"
     var buttonVolume100Text = "Hacme Göre-100"
     
+    var startRequestViewController = StartRequestViewController()
     var alert = UIAlertController()
     
     var interactor:Interactor? = nil
-    
-    var deneme = StartRequestViewController()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.veriparkLabel.text = self.veriparkLabelValue
-        self.ImkbStocksLabel.text = self.ImkbStocksLabelValue
+        self.imkbStocksLabel.text = self.ImkbStocksLabelValue
         
         self.buttonAll.setTitle(self.buttonAllText, for: .normal)
         self.buttonIncreasing.setTitle(self.buttonIncreasingText, for: .normal)
@@ -53,10 +52,9 @@ class SlidingViewController: UIViewController, UIAlertViewDelegate {
     }
     
     @IBAction func handleGesture(sender: UIPanGestureRecognizer) {
+        
         let translation = sender.translation(in: view)
-        
         let progress = MenuHelper.calculateProgress(translationInView: translation, viewBounds: view.bounds, direction: .Left)
-        
         MenuHelper.mapGestureStateToInteractor(
             gestureState: sender.state,
             progress: progress,
@@ -95,11 +93,11 @@ class SlidingViewController: UIViewController, UIAlertViewDelegate {
     }
     
     func services(periodName: String) {
-        StructView.periodName = deneme.periodChangeName(name: periodName)
+        StructView.periodName = startRequestViewController.periodChangeName(name: periodName)
         if (Int(truncating: StructView.secondApiEnter) < 1) {
             showAlert(title: "HATA", message: "Lütfen tekrar deneyiniz.")
         }
-        self.deneme.secondResponse()
+        self.startRequestViewController.secondResponse()
         self.performSegue(withIdentifier: "slideToDetail", sender: self)
     }
 }

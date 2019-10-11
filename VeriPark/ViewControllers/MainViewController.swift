@@ -18,7 +18,7 @@ class MainViewController: UIViewController {
     var symbolArrayInSymbolStr: [String] = []
     var isAuthorization: Bool!
     
-    let deneme = StartRequestViewController()
+    let startRequestViewController = StartRequestViewController()
     
     let buttonText = "IMKB Hisse Senetleri/Endeksler"
     let iconLabelText = "VERİPARK"
@@ -28,17 +28,15 @@ class MainViewController: UIViewController {
         
         self.iconLabel.text = self.iconLabelText
         self.nextButton.setTitle(self.buttonText, for: .normal)
-        
-        
-        self.isAuthorization = deneme.startResponse()
+        self.isAuthorization = startRequestViewController.startResponse()
     }
     
     @IBAction func button(_ sender: Any) {
         if (self.isAuthorization) {
-            StructView.periodName = deneme.periodChangeName(name: "all")
-            deneme.secondResponse()
+            StructView.periodName = startRequestViewController.periodChangeName(name: "all")
+            startRequestViewController.secondResponse()
         }else {
-            self.isAuthorization = deneme.startResponse()
+            self.isAuthorization = startRequestViewController.startResponse()
             showAlert(title: "HATA", message: "Lütfen internetinizi kontrol ediniz ve butona tekrar tıklayınız.")
         }
     }
@@ -46,7 +44,6 @@ class MainViewController: UIViewController {
 
 extension UIViewController {
     func showAlert (title:String, message:String) {
-        
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
         self.present(alert,animated:true,completion:nil)

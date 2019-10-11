@@ -15,7 +15,6 @@
 		8F55863A234BB2C8006D0F1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F558638234BB2C8006D0F1F /* Main.storyboard */; };
 		8F55863F234BB2CA006D0F1F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F55863D234BB2CA006D0F1F /* LaunchScreen.storyboard */; };
 		8F55864A234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558649234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift */; };
-		8F55864E234BBD03006D0F1F /* StocksAndIndicesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F55864D234BBD03006D0F1F /* StocksAndIndicesViewController.swift */; };
 		8F558650234BC362006D0F1F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F55864F234BC362006D0F1F /* Assets.xcassets */; };
 		8F558652234BC6A1006D0F1F /* SlidingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558651234BC6A1006D0F1F /* SlidingViewController.swift */; };
 		8F558656234C9613006D0F1F /* StartRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F558655234C9613006D0F1F /* StartRequestViewController.swift */; };
@@ -35,7 +34,6 @@
 		8F55863E234BB2CA006D0F1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F558640234BB2CA006D0F1F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F558649234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IMKBStocksAndIndicesViewController.swift; sourceTree = "<group>"; };
-		8F55864D234BBD03006D0F1F /* StocksAndIndicesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StocksAndIndicesViewController.swift; sourceTree = "<group>"; };
 		8F55864F234BC362006D0F1F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F558651234BC6A1006D0F1F /* SlidingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidingViewController.swift; sourceTree = "<group>"; };
 		8F558655234C9613006D0F1F /* StartRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartRequestViewController.swift; sourceTree = "<group>"; };
@@ -108,7 +106,6 @@
 			children = (
 				8F558636234BB2C8006D0F1F /* MainViewController.swift */,
 				8F558649234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift */,
-				8F55864D234BBD03006D0F1F /* StocksAndIndicesViewController.swift */,
 				8F558651234BC6A1006D0F1F /* SlidingViewController.swift */,
 				8F558655234C9613006D0F1F /* StartRequestViewController.swift */,
 				8F558659234D17CE006D0F1F /* AES.swift */,
@@ -252,7 +249,6 @@
 				8F2F608F234E7B8000147A6B /* StructView.swift in Sources */,
 				8F55865A234D17CE006D0F1F /* AES.swift in Sources */,
 				8F55864A234BB8E0006D0F1F /* IMKBStocksAndIndicesViewController.swift in Sources */,
-				8F55864E234BBD03006D0F1F /* StocksAndIndicesViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -440,13 +440,13 @@
                         <viewLayoutGuide key="safeArea" id="c28-vt-4xx"/>
                     </view>
                     <connections>
-                        <outlet property="ImkbStocksLabel" destination="HRJ-Dy-pWL" id="LAC-dx-ERm"/>
                         <outlet property="buttonAll" destination="BTI-yz-WSf" id="ycH-UU-RXp"/>
                         <outlet property="buttonDecreasing" destination="Wlw-pU-rWi" id="n7T-Sz-ohg"/>
                         <outlet property="buttonIncreasing" destination="8h9-6X-i6x" id="icE-sE-MDw"/>
                         <outlet property="buttonVolume100" destination="JME-Se-jfD" id="kjb-6f-PbB"/>
                         <outlet property="buttonVolume30" destination="MTK-mT-R8Q" id="Uhv-u0-mQ2"/>
                         <outlet property="buttonVolume50" destination="kXD-nC-5DX" id="xoy-EF-x6o"/>
+                        <outlet property="imkbStocksLabel" destination="HRJ-Dy-pWL" id="LAC-dx-ERm"/>
                         <outlet property="veriparkLabel" destination="h0v-Os-esm" id="dO6-Ec-i8E"/>
                         <segue destination="j7m-G2-wJx" kind="presentation" identifier="slideToDetail" id="vlW-Tz-5o1"/>
                     </connections>

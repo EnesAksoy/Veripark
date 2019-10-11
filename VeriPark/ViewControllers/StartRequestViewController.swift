@@ -15,15 +15,17 @@ class StartRequestViewController: UIViewController {
     var aesKey : String = ""
     var aesIV : String = ""
     var authorization : String = ""
-    //var periodNameBase64 : String = ""
     var symbol : String = ""
+    
+    var symbolArrayInSymbolStr: [String] = []
     var symbolArrayInSymbolArray: [String] = []
+    
     var symbolArrayInPriceArray: [Double] = []
     var symbolArrayInDifferenceArray: [Double] = []
     var offerArray: [Double] = []
     var volumeArray: [Double] = []
     var bidArray: [Double] = []
-    var symbolArrayInSymbolStr: [String] = []
+    
     var isDownArray: [Bool] = []
     var idArray: [Int] = []
     
@@ -31,9 +33,7 @@ class StartRequestViewController: UIViewController {
     var ivData: Data!
     
     var name : String = "all"
-    
     var priodNameStr = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,21 +62,14 @@ class StartRequestViewController: UIViewController {
                     print(error?.localizedDescription ?? "ERROR")
                     return
                 }
-                
                 guard let data = data else {
                     return
                 }
                 do {
-                    
                     if let json = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String: Any] {
-                        //print(json)
                         self.aesKey = json["aesKey"] as! String
-                        print("aesKey = \(self.aesKey)")
                         self.aesIV = json["aesIV"] as! String
-                        print("aesIV = \(self.aesIV)")
                         self.authorization = json["authorization"] as! String
-                        print("authorization = \(self.authorization)")
-                        
                     }
                     self.keyData = Data(base64Encoded: self.aesKey)!
                     self.ivData = Data(base64Encoded: self.aesIV)!
@@ -84,22 +77,11 @@ class StartRequestViewController: UIViewController {
                     StructView.keyData = self.keyData
                     StructView.ivData = self.ivData
                     StructView.authorization = self.authorization
-                    
-                   //self.periodChangeName(name: self.name)
-                    //self.periodChangeName(name: self.name)
-//                    let valueess = self.periodChangeName(name: self.name)
-                   
-                    
-                    
-                    
                 } catch let error {
                     print(error.localizedDescription)
                 }
             })
             task.resume()
-//        semaphore.wait()
-//        secondResponse()
-//        }
         if (StructView.authorization == nil) {
             return false
         }else {
@@ -144,11 +126,8 @@ class StartRequestViewController: UIViewController {
                 return
             }
             do {
-                
                 if let json2 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject] {
-                    
                     let json2Stocks = json2["stocks"] as! [Dictionary<String,AnyObject>]
-                    
                     for stock in json2Stocks {
                         let symbolArray = stock
                         self.symbolArrayInSymbolArray.append(symbolArray["symbol"] as! String)
@@ -160,17 +139,12 @@ class StartRequestViewController: UIViewController {
                         self.isDownArray.append(symbolArray["isDown"] as! Bool)
                         self.idArray.append(symbolArray["id"] as! Int)
                     }
-                    
                     if let aes = AESS(key: StructView.keyData! , iv: StructView.ivData!) {
-                        
                         for item in self.symbolArrayInSymbolArray {
                             let symData = Data(base64Encoded: item)
                             let symDataString = aes.decrypt(data: symData)
                             self.symbolArrayInSymbolStr.append(symDataString!)
-                            
                         }
-                        
-                        print(self.symbolArrayInSymbolStr)
                         StructView.symbolArrayInSymbolStr = self.symbolArrayInSymbolStr
                         StructView.priceArray = self.symbolArrayInPriceArray
                         StructView.differenceArray = self.symbolArrayInDifferenceArray

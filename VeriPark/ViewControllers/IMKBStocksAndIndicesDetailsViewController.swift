@@ -23,7 +23,6 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     @IBOutlet weak var ceilingLabel: UILabel!
     @IBOutlet weak var baseLabel: UILabel!
     @IBOutlet weak var changeLabel: UILabel!
-    @IBOutlet weak var loadingImage: UIImageView!
     
     @IBOutlet weak var symbolValueLabel: UILabel!
     @IBOutlet weak var priceValueLabel: UILabel!
@@ -36,10 +35,11 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     @IBOutlet weak var pieceValueLabel: UILabel!
     @IBOutlet weak var ceilingValueLabel: UILabel!
     @IBOutlet weak var baseValueLabel: UILabel!
+    
+    @IBOutlet weak var loadingImage: UIImageView!
     @IBOutlet weak var changeİmageView: UIImageView!
     
     @IBOutlet weak var viewLineChart: LineChartView!
-    
     var chart: LineChartView!
     var dataSet: LineChartDataSet!
     
@@ -55,14 +55,13 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     let ceilingLabelText = "Tavan:"
     let baseLabelText = "Taban:"
     let changeLabelText = "Değişim:"
+     var encryptIdBase64 : String = ""
     
     var id = String(StructView.selectedId)
-    var encryptIdBase64 : String = ""
-    
+   
     var isDown: Bool = false
     var bid: Double = 0.0
     var change: Double = 0.0
-    var count: Int = 0
     var difference: Double = 0.0
     var offer: Double = 0.0
     var highest: Double = 0.0
@@ -72,11 +71,12 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
     var price: Double = 0.0
     var volume: Double = 0.0
     var symbol: String = ""
-    var symbolDecrypt = ""
+    var symbolDecrypt:String = ""
     var minimum: Double = 0.0
     var ceiling: Double = 0.0
-    var daysArray: [Int] = []
     var valueArray: [Double] = []
+    var daysArray: [Int] = []
+    var count: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -114,7 +114,6 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
             } else {
                 self.changeİmageView.image = UIImage(named:"down")!
             }
-            
             self.setChartValues()
             self.loadingImage.isHidden = true
         }
@@ -125,15 +124,10 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
             let val = Double(arc4random_uniform(UInt32(count)) + 3)
             return ChartDataEntry(x: Double(i), y: val)
         }
-        
         let set1 = LineChartDataSet(entries: values, label: self.symbolDecrypt)
         let data = LineChartData(dataSet: set1)
-        
         self.viewLineChart.data = data
-        
     }
-    
-    
     
     func thirdResponse () {
         let urlDetail = URL(string:"https://mobilechallange.veripark.com/api/stocks/detail")!
@@ -164,11 +158,8 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
             do {
                 if let json3 = try JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? [String:AnyObject] {
                     self.bid = json3["bid"] as! Double
-                    //print("bidddddd::::: \(self.bid)")
-                    self.isDown = json3["isDown"] as! Bool
                     self.change = json3["channge"] as! Double
                     self.minimum = json3["minimum"] as! Double
-                    self.count = json3["count"] as! Int
                     self.difference = json3["difference"] as! Double
                     self.offer = json3["offer"] as! Double
                     self.highest = json3["highest"] as! Double
@@ -176,6 +167,8 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
                     self.maximum = json3["maximum"] as! Double
                     self.price = json3["price"] as! Double
                     self.volume = json3["volume"] as! Double
+                    self.count = json3["count"] as! Int
+                    self.isDown = json3["isDown"] as! Bool
                     self.symbol = json3["symbol"] as! String
                      if let aes = AESS(key: StructView.keyData! , iv: StructView.ivData!) {
                         let symData = Data(base64Encoded: self.symbol)
@@ -194,7 +187,6 @@ class IMKBStocksAndIndicesDetailsViewController: UIViewController {
             }
         })
         task.resume()
-        
     }
     @IBAction func homeButtonClick(_ sender: Any) {
         let storyBoard: UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
